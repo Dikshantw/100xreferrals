@@ -20,7 +20,7 @@ model User {
   phone       String
   github      String   @unique
   bestProject String
-  scholaship  String?
+  scholarship String?
   createdAt   DateTime @default(now())
 }
 
