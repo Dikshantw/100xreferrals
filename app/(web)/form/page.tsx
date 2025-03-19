@@ -25,6 +25,8 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { toast } from "sonner";
+import Link from "next/link";
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -60,8 +62,15 @@ const FormPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(applicationData),
       });
-      const submissions = await res.json();
-      console.log(submissions);
+      const result = await res.json();
+      if (!res.ok) {
+        if (res.status === 409) {
+          toast.error("This email or GitHub has already been submitted.");
+        } else {
+          toast.error(result.error || "Something went wrong.");
+        }
+        return;
+      }
       form.reset();
     } catch (error) {
       console.error("Form submission error:", error);
@@ -74,6 +83,11 @@ const FormPage = () => {
     <div className="container max-w-3xl m-auto px-8 py-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold ">Referral Application</h1>
+        <Link href="/login">
+          <Button variant="outline" className="hover:cursor-pointer">
+            Admin Login
+          </Button>
+        </Link>
       </div>
       <Card className=" py-0 rounded-lg shadow-lg">
         <CardHeader className=" p-6 space-y-1.5 rounded-lg">
