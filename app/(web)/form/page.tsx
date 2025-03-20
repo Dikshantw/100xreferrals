@@ -27,11 +27,13 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
+import SuccessModal from "@/components/SuccessModal";
 
 type FormValues = z.infer<typeof formSchema>;
 
 const FormPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -71,6 +73,7 @@ const FormPage = () => {
         }
         return;
       }
+      setShowSuccessModal(true);
       form.reset();
     } catch (error) {
       console.error("Form submission error:", error);
@@ -78,6 +81,10 @@ const FormPage = () => {
       setIsSubmitting(false);
     }
   };
+
+  function handleCloseSuccessModal(): void {
+    setShowSuccessModal(false);
+  }
 
   return (
     <div className="container max-w-3xl m-auto px-8 py-10">
@@ -235,6 +242,7 @@ const FormPage = () => {
           </Form>
         </CardContent>
       </Card>
+      <SuccessModal open={showSuccessModal} onClose={handleCloseSuccessModal} />
     </div>
   );
 };
