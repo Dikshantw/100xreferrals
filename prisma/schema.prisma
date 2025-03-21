@@ -21,6 +21,7 @@ model User {
   github      String   @unique
   bestProject String
   scholarship String?
+  status      String   @default("pending")
   createdAt   DateTime @default(now())
 }
 
