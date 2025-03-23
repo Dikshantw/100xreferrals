@@ -9,6 +9,9 @@ interface StatusCardsProps {
 const ApplicationsStatusCards = ({ submissions = [] }: StatusCardsProps) => {
   const stats = {
     totalApplication: submissions?.length || 0,
+    pendingRequest: submissions?.filter(
+      (application) => application.status === "pending"
+    ).length,
     scholarShipRequest: submissions?.filter(
       (application) =>
         application.scholarship && application.scholarship !== "None"
@@ -37,7 +40,9 @@ const ApplicationsStatusCards = ({ submissions = [] }: StatusCardsProps) => {
           <Clock className="h-4 w-4" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-foreground">9</div>
+          <div className="text-2xl font-bold text-foreground">
+            {stats.pendingRequest}
+          </div>
         </CardContent>
       </Card>
       <Card>
