@@ -6,5 +6,6 @@ export default interface Application {
     github: string;
     bestProject: string;
     scholarship: "50%" | "80%" | "100%" | "None" | null;
+    status: "pending" | "accepted" | "rejected";
     createdAt: Date;
   }
