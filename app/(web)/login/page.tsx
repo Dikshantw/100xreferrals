@@ -10,6 +10,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -102,7 +103,7 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Email Id</FormLabel>
                     <FormControl>
-                      <Input placeholder="admin" {...field} />
+                      <Input placeholder="admin@gmail.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -131,6 +132,9 @@ export default function Login() {
             </form>
           </Form>
         </CardContent>
+        <CardFooter className="text-sm text-gray-500 flex justify-center">
+          <p>For demo: email = admin@gmail.com password = admin123</p>
+        </CardFooter>
       </Card>
     </div>
   );
